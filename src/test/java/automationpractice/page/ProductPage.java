@@ -1,6 +1,6 @@
 package automationpractice.page;
 
-import org.junit.Assert;
+import org.junit.jupiter.api.*;
 import org.openqa.selenium.By;
 
 public class ProductPage extends BasePage {
@@ -36,12 +36,12 @@ public class ProductPage extends BasePage {
 
     public void validarMensagemProdutoForaDeEstoque() {
         String messageValidation = lerTexto(textProdutoForaDeEstoque);
-        Assert.assertEquals("This product is no longer in stock with those attributes but is available with others.", messageValidation);
+        Assertions.assertEquals("This product is no longer in stock with those attributes but is available with others.", messageValidation);
     }
 
     public void adicionarProdutoAoCarrinho() {
         String titleText = getTitleProduct();
-        Assert.assertEquals("Faded Short Sleeve T-shirts", titleText);
+        Assertions.assertEquals("Faded Short Sleeve T-shirts", titleText);
 
         clicarSeletorTamanho();
         clicarAdicionarQuantidadeProduto();
@@ -50,7 +50,7 @@ public class ProductPage extends BasePage {
         clicarAdicionarProdutoAoCarrinho();
 
         String responseAddCarrinho = getResponseAdicionarCarrinho();
-        Assert.assertEquals("Product successfully added to your shopping cart", responseAddCarrinho);
+        Assertions.assertEquals("Product successfully added to your shopping cart", responseAddCarrinho);
     }
 
 }

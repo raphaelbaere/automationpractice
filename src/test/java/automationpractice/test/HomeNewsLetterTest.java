@@ -1,8 +1,7 @@
 package automationpractice.test;
 
 import io.qameta.allure.*;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.*;
 import automationpractice.data.factory.datafaker.NewsletterEmailData;
 import automationpractice.page.HomePage;
 import automationpractice.utils.Scroll;
@@ -21,7 +20,7 @@ public class HomeNewsLetterTest extends BaseTest {
     public void validarUmaInscricaoNewsLetterComEmailValido() {
         String response = homePage.enviarEmailNewsletter(factory.getDTOcomEmailValido().getEmail());
 
-        Assert.assertEquals("Newsletter : You have successfully subscribed to this newsletter.", response);
+        Assertions.assertEquals("Newsletter : You have successfully subscribed to this newsletter.", response);
     }
 
     @Test
@@ -32,7 +31,7 @@ public class HomeNewsLetterTest extends BaseTest {
     public void validarMensagemDeEmailRepetido() {
         String response = homePage.enviarEmailNewsletter(factory.getDTOcomEmailExistente().getEmail());
 
-        Assert.assertEquals("Newsletter : This email address is already registered.", response);
+        Assertions.assertEquals("Newsletter : This email address is already registered.", response);
     }
 
     @Test
@@ -43,6 +42,6 @@ public class HomeNewsLetterTest extends BaseTest {
     public void validarMensagemDeEmailInvalido() {
         String response = homePage.enviarEmailNewsletter(factory.getDTOcomEmailVazio().getEmail());
 
-        Assert.assertEquals("Newsletter : Invalid email address.", response);
+        Assertions.assertEquals("Newsletter : Invalid email address.", response);
     }
 }

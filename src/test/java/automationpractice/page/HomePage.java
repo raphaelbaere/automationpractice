@@ -1,8 +1,8 @@
 package automationpractice.page;
 
-import org.junit.Assert;
+
 import org.openqa.selenium.By;
-import automationpractice.utils.Scroll;
+import org.junit.jupiter.api.*;
 
 public class HomePage extends BasePage {
     public static final By inputEmailNewsLetter = By.cssSelector("#newsletter-input");
@@ -38,7 +38,7 @@ public class HomePage extends BasePage {
 
     public void selecionarProdutoNaCategoriaWomen() {
         String titlePage = womanPage.getTitlePageText();
-        Assert.assertEquals("WOMEN", titlePage.trim());
+        Assertions.assertEquals("WOMEN", titlePage.trim());
 
         womanPage.clickAddMoreProduct();
     }

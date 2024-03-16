@@ -1,11 +1,10 @@
 package automationpractice.test;
 
 import io.qameta.allure.*;
-import org.junit.Assert;
-import org.junit.Test;
 import automationpractice.data.dto.ContactDTO;
 import automationpractice.data.factory.datafaker.ContactData;
 import automationpractice.page.ContactPage;
+import org.junit.jupiter.api.*;
 
 public class ContactTest extends BaseTest {
 
@@ -21,9 +20,9 @@ public class ContactTest extends BaseTest {
     public void validarMensagemDeContatoComDadosValidos() {
         ContactDTO usu = contactData.contatoComDadosValido();
         String msgmTituloContact = contactPage.validarPaginaContact();
-        Assert.assertEquals("CUSTOMER SERVICE - CONTACT US", msgmTituloContact);
+        Assertions.assertEquals("CUSTOMER SERVICE - CONTACT US", msgmTituloContact);
         String msgmSucesso = contactPage.mandarMensagemDeContato(usu.getEmail(), usu.getMsg());
-        Assert.assertEquals("Your message has been successfully sent to our team.", msgmSucesso);
+        Assertions.assertEquals("Your message has been successfully sent to our team.", msgmSucesso);
     }
 
     @Test
@@ -34,9 +33,9 @@ public class ContactTest extends BaseTest {
     public void validarMensagemDeContatoComMensagemVazia() {
         ContactDTO usu = contactData.contatoComMensagemInvalida();
         String msgmTituloContact = contactPage.validarPaginaContact();
-        Assert.assertEquals("CUSTOMER SERVICE - CONTACT US", msgmTituloContact);
+        Assertions.assertEquals("CUSTOMER SERVICE - CONTACT US", msgmTituloContact);
         String msgmContatoVazio = contactPage.mensagemDeContatoVazia(usu.getEmail(), usu.getMsg());
-        Assert.assertEquals("The message cannot be blank.", msgmContatoVazio);
+        Assertions.assertEquals("The message cannot be blank.", msgmContatoVazio);
     }
 
     @Test
@@ -47,9 +46,9 @@ public class ContactTest extends BaseTest {
     public void validarMensagemDeContatoComEmailInvalido() {
         ContactDTO usu = contactData.contatoComEmailInvalido();
         String msgmTituloContact = contactPage.validarPaginaContact();
-        Assert.assertEquals("CUSTOMER SERVICE - CONTACT US", msgmTituloContact);
+        Assertions.assertEquals("CUSTOMER SERVICE - CONTACT US", msgmTituloContact);
         String msgmEmailInvalido = contactPage.mensagemDeContatoEmailInvalido(usu.getEmail(), usu.getMsg());
-        Assert.assertEquals("Invalid email address.", msgmEmailInvalido);
+        Assertions.assertEquals("Invalid email address.", msgmEmailInvalido);
     }
 
     @Test
@@ -60,9 +59,9 @@ public class ContactTest extends BaseTest {
     public void validarMensagemDeContatoAssuntoNaoSelecionado() {
         ContactDTO usu = contactData.contatoComDadosValido();
         String msgmTituloContact = contactPage.validarPaginaContact();
-        Assert.assertEquals("CUSTOMER SERVICE - CONTACT US", msgmTituloContact);
+        Assertions.assertEquals("CUSTOMER SERVICE - CONTACT US", msgmTituloContact);
         String msgmAssuntoNaoSelecionado = contactPage.mensagemDeContatoAssuntoInvalido(usu.getEmail(), usu.getMsg());
-        Assert.assertEquals("Please select a subject from the list provided.", msgmAssuntoNaoSelecionado);
+        Assertions.assertEquals("Please select a subject from the list provided.", msgmAssuntoNaoSelecionado);
     }
 
 }

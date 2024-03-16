@@ -1,8 +1,7 @@
 package automationpractice.test;
 
 import io.qameta.allure.*;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.*;
 import automationpractice.data.dto.SignInDTO;
 import automationpractice.data.factory.datafaker.SignInData;
 import automationpractice.page.AuthenticationPage;
@@ -26,8 +25,8 @@ public class SignInTest extends BaseTest{
         authenticationPage.irParaPaginaSignInERegistrarUmaContaComEmailValido(signInDTO);
         ArrayList<String> mensagens = signInPage.registrarUsuarioValido(signInDTO);
 
-        Assert.assertEquals("Your account has been created.", mensagens.get(0));
-        Assert.assertEquals(signInDTO.getFirstName() + " " + signInDTO.getLastName(), mensagens.get(1));
+        Assertions.assertEquals("Your account has been created.", mensagens.get(0));
+        Assertions.assertEquals(signInDTO.getFirstName() + " " + signInDTO.getLastName(), mensagens.get(1));
     };
 
     @Test
@@ -40,7 +39,7 @@ public class SignInTest extends BaseTest{
         authenticationPage.irParaPaginaSignInERegistrarUmaContaComEmailValido(signInDTO);
         String mensagem = signInPage.registrarUsuarioInvalido(signInDTO);
 
-        Assert.assertEquals("email is invalid.", mensagem);
+        Assertions.assertEquals("email is invalid.", mensagem);
     };
 
     @Test
@@ -53,7 +52,7 @@ public class SignInTest extends BaseTest{
         signInDTO.setEmail("baereraphael@gmail.com");
         String mensagem = authenticationPage.irParaPaginaSignInERegistrarUmaContaComEmailInvalidoJaExistente(signInDTO);
 
-        Assert.assertEquals("An account using this email address has already been registered. Please enter a valid password or request a new one.", mensagem);
+        Assertions.assertEquals("An account using this email address has already been registered. Please enter a valid password or request a new one.", mensagem);
     };
 
     @Test
@@ -65,7 +64,7 @@ public class SignInTest extends BaseTest{
         SignInDTO signInDTO = signInData.signInDadosValidosDinamicos();
         authenticationPage.irParaPaginaSignInERegistrarUmaContaComEmailValido(signInDTO);
         String mensagem = signInPage.registrarUsuarioInvalidoJaExistente(signInDTO);
-        Assert.assertEquals("An account using this email address has already been registered.", mensagem);
+        Assertions.assertEquals("An account using this email address has already been registered.", mensagem);
     };
 
     @Test
@@ -77,6 +76,6 @@ public class SignInTest extends BaseTest{
         SignInDTO signInDTO = signInData.signInDadosValidosDinamicos();
         authenticationPage.irParaPaginaSignInERegistrarUmaContaComEmailValido(signInDTO);
         String mensagem = signInPage.registrarUsuarioComTodosOsCamposVazios();
-        Assert.assertEquals("There are 3 errors\nlastname is required.\nfirstname is required.\npasswd is required.", mensagem);
+        Assertions.assertEquals("There are 3 errors\nlastname is required.\nfirstname is required.\npasswd is required.", mensagem);
     };
 }

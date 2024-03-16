@@ -1,9 +1,9 @@
 package automationpractice.test;
 
 import io.qameta.allure.*;
-import org.junit.Test;
 import automationpractice.data.factory.datafaker.LoginData;
 import automationpractice.page.*;
+import org.junit.jupiter.api.Test;
 
 public class AddToCartTest extends BaseTest {
 

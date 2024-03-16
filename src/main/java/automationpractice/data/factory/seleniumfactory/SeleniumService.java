@@ -3,9 +3,10 @@ package automationpractice.data.factory.seleniumfactory;
 
 
 import automationpractice.utils.ConfigProperties;
-import org.junit.After;
+import org.junit.jupiter.api.AfterEach;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -30,7 +31,9 @@ public class SeleniumService {
 
         switch (ConfigProperties.properties.getProperty("BrowserType")) {
             case "chrome":
-                driver = new ChromeDriver();
+                ChromeOptions options = new ChromeOptions();
+                options.addArguments("--headless");
+                driver = new ChromeDriver(options);
                 wait = new WebDriverWait(driver, Duration.ofSeconds(5));
                 driver.get(ConfigProperties.properties.getProperty("AppURL"));
                 driver.manage().window().maximize();
@@ -56,7 +59,7 @@ public class SeleniumService {
         }
     }
 
-    @After
+    @AfterEach
     public void tearDown() {
         driver.quit();
     }

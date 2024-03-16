@@ -1,8 +1,7 @@
 package automationpractice.test;
 
 import io.qameta.allure.*;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.*;
 import automationpractice.data.dto.SearchDTO;
 import automationpractice.data.factory.datafaker.SearchData;
 import automationpractice.page.SearchPage;
@@ -20,7 +19,7 @@ public class SearchTest extends BaseTest {
     public void validaSearchComProdutoValido(){
         searchPage.enviarProdutoNoSearch(searchData.produtoValido().getNome());
         String nomeDoProduto = searchPage.validarNomeDoProdutoBuscado();
-        Assert.assertEquals("Printed Dress", nomeDoProduto);
+        Assertions.assertEquals("Printed Dress", nomeDoProduto);
     }
 
     @Test
@@ -32,7 +31,7 @@ public class SearchTest extends BaseTest {
         SearchDTO produtoNomeInvalido = searchData.produtoInvalido();
         searchPage.enviarProdutoNoSearch(produtoNomeInvalido.getNome());
         String mensagem = searchPage.validarMensagemDeNaoEncontrado();
-        Assert.assertEquals("No results were found for your search \"" + produtoNomeInvalido.getNome() + "\"", mensagem);
+        Assertions.assertEquals("No results were found for your search \"" + produtoNomeInvalido.getNome() + "\"", mensagem);
     }
 
     @Test
@@ -43,7 +42,7 @@ public class SearchTest extends BaseTest {
     public void validaSearchComProdutoComNomeErros(){
         searchPage.enviarProdutoNoSearch(searchData.produtoComNomeProximo().getNome());
         String nomeDoProduto = searchPage.validarNomeDoProdutoBuscado();
-        Assert.assertEquals("Printed Dress", nomeDoProduto);
+        Assertions.assertEquals("Printed Dress", nomeDoProduto);
     }
 
 

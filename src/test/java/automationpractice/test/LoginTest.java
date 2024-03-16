@@ -1,7 +1,6 @@
 package automationpractice.test;
 import io.qameta.allure.*;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.*;
 import automationpractice.data.dto.LoginDTO;
 import automationpractice.data.factory.datafaker.LoginData;
 import automationpractice.page.LoginPage;
@@ -21,7 +20,7 @@ public class LoginTest extends BaseTestLogin {
         loginPage.preencherCampoEmail(usuario.getEmail());
         loginPage.preencherCampoSenha(usuario.getSenha());
         loginPage.clicarBtnAcessar();
-        Assert.assertTrue(loginPage.validarLoginArea());
+        Assertions.assertTrue(loginPage.validarLoginArea());
 
     };
 
@@ -36,7 +35,7 @@ public class LoginTest extends BaseTestLogin {
         loginPage.preencherCampoSenha(usuario.getSenha());
         loginPage.clicarBtnAcessar();
         String mensagem = loginPage.validarMsgEmailIncorreto();
-        Assert.assertEquals("Authentication failed.", mensagem);
+        Assertions.assertEquals("Authentication failed.", mensagem);
     }
 
     @Test
@@ -50,7 +49,7 @@ public class LoginTest extends BaseTestLogin {
         loginPage.preencherCampoSenha(usuario.getSenha());
         loginPage.clicarBtnAcessar();
         String mensagem = loginPage.validarMsgEmailIncorreto();
-        Assert.assertEquals("An email address required.", mensagem);
+        Assertions.assertEquals("An email address required.", mensagem);
     }
 
     @Test
@@ -64,7 +63,7 @@ public class LoginTest extends BaseTestLogin {
         loginPage.preencherCampoSenha(usuario.getSenha());
         loginPage.clicarBtnAcessar();
         String mensagem = loginPage.validarMsgEmailIncorreto();
-        Assert.assertEquals("Password is required.", mensagem);
+        Assertions.assertEquals("Password is required.", mensagem);
     }
 
     @Test
@@ -78,6 +77,6 @@ public class LoginTest extends BaseTestLogin {
         loginPage.preencherCampoSenha(usuario.getSenha());
         loginPage.clicarBtnAcessar();
         String mensagem = loginPage.validarMsgEmailIncorreto();
-        Assert.assertEquals("Invalid email address.", mensagem);
+        Assertions.assertEquals("Invalid email address.", mensagem);
     }
 }

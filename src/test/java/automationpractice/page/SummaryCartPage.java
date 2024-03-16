@@ -1,6 +1,6 @@
 package automationpractice.page;
 
-import org.junit.Assert;
+import org.junit.jupiter.api.*;
 import org.openqa.selenium.By;
 import automationpractice.data.dto.LoginDTO;
 import automationpractice.data.factory.datafaker.LoginData;
@@ -58,12 +58,12 @@ public class SummaryCartPage extends BasePage {
 
     public void fecharCarrinhoCompras() {
         String titleSumarioCarrinho = getTitleSumarioCarrinho();
-        Assert.assertEquals("01. Summary", titleSumarioCarrinho.trim());
+        Assertions.assertEquals("01. Summary", titleSumarioCarrinho.trim());
 
         scrollarAteOElemento(buttonToSign);
         clickProceedToSignInSection();
         boolean loginValidator = estaNaAbaAuthentication();
-        Assert.assertTrue(loginValidator);
+        Assertions.assertTrue(loginValidator);
 
         LoginDTO data = loginData.loginDadosValidos();
         loginPage.fazerLogin(data.getEmail(), data.getSenha());
@@ -71,7 +71,7 @@ public class SummaryCartPage extends BasePage {
         scrollarAteOElemento(buttonToShipping);
         clickProceedToShippingSection();
         String validation = estaNaAbaShipping();
-        Assert.assertEquals("SHIPPING:", validation);
+        Assertions.assertEquals("SHIPPING:", validation);
 
         scrollarAteOElemento(checkboxAgreeTerms);
         clickAgreeTerms();
@@ -86,7 +86,7 @@ public class SummaryCartPage extends BasePage {
         clickConfirmarOrder();
 
         String validationTextOrder = getMessageOrderConfirmed();
-        Assert.assertEquals("Your order on My Shop is complete.", validationTextOrder);
+        Assertions.assertEquals("Your order on My Shop is complete.", validationTextOrder);
 
     }
 }
