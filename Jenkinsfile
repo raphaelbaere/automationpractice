@@ -13,7 +13,7 @@ pipeline {
                 steps {
                     script {
                         if (fileExists('repo_api')) {
-                            sh 'rmdir repo_api'
+                            sh 'rmdir /s /q repo_api'
                         } else {
                             echo 'Diretório repo_api não encontrado. Nenhuma ação necessária.'
                         }
