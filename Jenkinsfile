@@ -12,7 +12,11 @@ pipeline {
             stage('Checkout API Repository') {
                 steps {
                     script {
-                        sh 'rmdir /s /q repo_api'
+                        if (fileExists('repo_api')) {
+                            sh 'rmdir repo_api'
+                        } else {
+                            echo 'Diretório repo_api não encontrado. Nenhuma ação necessária.'
+                        }
                         sh 'git clone -b dev https://github.com/vemser/chronos-qa-api.git repo_api'
                     }
                 }
