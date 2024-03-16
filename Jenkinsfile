@@ -2,19 +2,10 @@ pipeline {
     agent any
 
     stages {
-        parallel {
             stage('Checkout API Repository') {
                 steps {
                     script {
                         checkout scm
-                    }
-                }
-            }
-           stage('Test UI Repository') {
-                steps {
-                    script {
-                        echo 'Iniciando etapa de teste para o primeiro repositório...'
-                        sh 'mvn -e clean test -Dmaven.test.failure.ignore=true'
                     }
                 }
             }
@@ -26,14 +17,25 @@ pipeline {
                     }
                 }
             }
-            stage('Test API Repository') {
+           stage('Test UI Repository') {
+           parallel {
+                steps {
+                    script {
+                        echo 'Iniciando etapa de teste para o primeiro repositório...'
+                        sh 'mvn -e clean test -Dmaven.test.failure.ignore=true'
+                    }
+                }
+              }
+            }
+           stage('Test API Repository') {
+           parallel {
                 steps {
                     script {
                         sh 'cd repo_api && mvn clean test -Dmaven.test.failure.ignore=true'
                     }
                 }
+              }
             }
-        }
             stage('Publish Allure Report') {
                 steps {
                     script {
