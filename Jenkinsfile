@@ -69,14 +69,12 @@ pipeline {
 
                     def WEBHOOK_URL="https://discord.com/api/webhooks/1219110961928077393/OTQYO4L5cIVwvQyokpAzx6B6GFs5E9PZnyxjV54NDraBHDvufYth9Lw_PBFH1kpGcLSe"
                     def MESSAGE="Mensagem de exemplo com imagem"
-                    def IMAGE_PATH="screenshot/screenshot.png"
-                    def IMAGE_BASE64= sh(script: "base64 -w 0 ${IMAGE_PATH}", returnStdout: true).trim()
-
                     // Construir a carga útil JSON
-                    def PAYLOAD="{\"content\":\"${MESSAGE}\",\"file\":\"data:image/jpeg;base64,${IMAGE_BASE64}\"}"
+                    def PAYLOAD="{\"content\":\"${MESSAGE}\"}"
 
-                    // Enviar a mensagem com a imagem para o webhook do Discord
-                    sh "echo '${PAYLOAD}' | curl -X POST -H 'Content-Type: application/json' -d @- '${WEBHOOK_URL}'"
+
+                    // Enviar a mensagem para o webhook do Discord
+                    sh "curl -X POST -H 'Content-Type: application/json' -d '${PAYLOAD}' -F "file1=@/screenshot/screenshot.png" '${WEBHOOK_URL}'"
                 } catch (e) {
                     echo "Erro ao executar notificação para o Discord: ${e.message}"
                 }
