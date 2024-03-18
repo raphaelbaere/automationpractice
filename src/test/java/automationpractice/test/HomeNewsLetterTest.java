@@ -1,7 +1,8 @@
 package automationpractice.test;
 
 import io.qameta.allure.*;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Assertions;
 import automationpractice.data.factory.datafaker.NewsletterEmailData;
 import automationpractice.page.HomePage;
 import automationpractice.utils.Scroll;

@@ -4,7 +4,8 @@ import io.qameta.allure.*;
 import automationpractice.data.dto.ContactDTO;
 import automationpractice.data.factory.datafaker.ContactData;
 import automationpractice.page.ContactPage;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Assertions;
 
 public class ContactTest extends BaseTest {
 

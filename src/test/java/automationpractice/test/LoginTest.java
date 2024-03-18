@@ -1,6 +1,7 @@
 package automationpractice.test;
 import io.qameta.allure.*;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Assertions;
 import automationpractice.data.dto.LoginDTO;
 import automationpractice.data.factory.datafaker.LoginData;
 import automationpractice.page.LoginPage;
