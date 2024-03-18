@@ -34,7 +34,6 @@ pipeline {
                         script {
                             echo 'Iniciando etapa de teste para o primeiro repositório...'
                             sh 'mvn -e clean test -Dmaven.test.failure.ignore=true'
-                            sh "allure generate -o allure-results"
                         }
                     }
                 }
@@ -42,7 +41,6 @@ pipeline {
                     steps {
                         script {
                             sh 'cd repo_api && mvn clean test -Dmaven.test.failure.ignore=true'
-                            sh "cd repo_api && allure generate -o allure-results"
                         }
                     }
                 }
