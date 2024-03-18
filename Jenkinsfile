@@ -1,12 +1,6 @@
 pipeline {
     agent any
 
-    tools {
-        maven "MAVEN"
-        nodejs "NODE"
-        git "GIT"
-    }
-
     stages {
             stage('Checkout UI Repository') {
                 steps {
