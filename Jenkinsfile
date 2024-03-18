@@ -74,30 +74,6 @@ post {
             echo 'Pós-processamento concluído.'
             script {
                 try {
-                def buildUrl = env.BUILD_URL
-                                def buildResult = currentBuild.currentResult
-                                def branchName = env.BRANCH_NAME
-                                def buildNumber = env.BUILD_NUMBER
-
-                                def printAllure = sh(script: "cd C:\\Users\\rapha && node capture.js ${env.BUILD_NUMBER}", returnStdout: true).trim()
-                                def link = "abc"
-                                try {
-                                    def matcher = (printAllure =~ /https?:\/\/[^\s]+/)
-                                    link = matcher.find() ? matcher.group() : "Link não encontrado"
-                                } catch (Exception e) {
-                                    echo "Erro ao extrair o link da saída do comando: ${e.message}"
-                                }
-
-                                def message = "# Relatorio de Testes/API e UI\n"
-                                message += "**Branch:** RELEASE\n"
-                                message += "**Build:** ${buildNumber}\n"
-                                message += "**Status:** ${buildResult}\n"
-                                message += "**Allure Report:** [Allure Report Link](/job/exemplo_aula/${buildNumber}/allure/)"
-
-
-                                discordSend description: message,
-                                    image: "${link}",
-                                    webhookURL: ""
                 } catch (e) {
                     echo "Erro ao executar notificação para o Discord: ${e.message}"
                 }
