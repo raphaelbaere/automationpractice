@@ -74,7 +74,7 @@ pipeline {
 
 
                     // Enviar a mensagem para o webhook do Discord
-                    sh "curl -X POST -H 'Content-Type: application/json' -d '${PAYLOAD}' -F 'payload_json={"username": "test", "content": "hello"}' -F "file1=@screenshot/screenshot.png" '${WEBHOOK_URL}'"
+                    sh "curl -X POST -H 'Content-Type: multipart/form-data' -F 'payload_json=${PAYLOAD}' -F 'file1=@${screenshotPath}' '${WEBHOOK_URL}'"
                 } catch (e) {
                     echo "Erro ao executar notificação para o Discord: ${e.message}"
                 }
