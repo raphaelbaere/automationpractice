@@ -16,7 +16,7 @@ public class LoginTest extends BaseTestLogin {
     @Story("Login valido com sucesso")
     @Description("Testa se o usuário consegue efetuar o login com dados validos e se de fato esta logado na pagina")
     @Severity(SeverityLevel.CRITICAL)
-    public void validarLoginComDadosValidos(){
+    public void testValidarLoginComDadosValidos(){
         LoginDTO usuario = loginData.loginDadosValidos();
         loginPage.preencherCampoEmail(usuario.getEmail());
         loginPage.preencherCampoSenha(usuario.getSenha());
@@ -30,7 +30,7 @@ public class LoginTest extends BaseTestLogin {
     @Story("Login invalido com mensagem de erro")
     @Description("Testa se o usuário ao efetuar login com dados invalidos recebe a mensagem apropriada")
     @Severity(SeverityLevel.CRITICAL)
-    public void validarLoginDadosInvalidos() {
+    public void testValidarLoginDadosInvalidos() {
         LoginDTO usuario = loginData.loginDadosDinamicos();
         loginPage.preencherCampoEmail(usuario.getEmail());
         loginPage.preencherCampoSenha(usuario.getSenha());
@@ -44,7 +44,7 @@ public class LoginTest extends BaseTestLogin {
     @Story("Login com campos vazios")
     @Description("Testa se o usuário ao efetuar login sem preencher nenhum campo recebe a mensagem apropriada")
     @Severity(SeverityLevel.CRITICAL)
-    public void validarLoginTodosDadosVazios(){
+    public void testValidarLoginTodosDadosVazios(){
         LoginDTO usuario = loginData.loginCamposVazios();
         loginPage.preencherCampoEmail(usuario.getEmail());
         loginPage.preencherCampoSenha(usuario.getSenha());
@@ -58,7 +58,7 @@ public class LoginTest extends BaseTestLogin {
     @Story("Login com email valido e senha vazia")
     @Description("Testa se o usuário ao efetuar login preenchendo um email valido e nao inserindo uma senha recebe a mensagem apropriada")
     @Severity(SeverityLevel.CRITICAL)
-    public void validarLoginComEmailValidoESenhaVazia(){
+    public void testValidarLoginComEmailValidoESenhaVazia(){
         LoginDTO usuario = loginData.loginComEmailValidoSemSenha();
         loginPage.preencherCampoEmail(usuario.getEmail());
         loginPage.preencherCampoSenha(usuario.getSenha());
@@ -72,7 +72,7 @@ public class LoginTest extends BaseTestLogin {
     @Story("Login com email invalido")
     @Description("Testa se o usuário ao efetuar login preenchendo um email invalido recebe a mensagem apropriada")
     @Severity(SeverityLevel.CRITICAL)
-    public void validarLoginComEmailInvalido(){
+    public void testValidarLoginComEmailInvalido(){
         LoginDTO usuario = loginData.loginEmailInvalido();
         loginPage.preencherCampoEmail(usuario.getEmail());
         loginPage.preencherCampoSenha(usuario.getSenha());
