@@ -48,7 +48,7 @@ pipeline {
 
                         archiveArtifacts 'allure-report/**'
 
-                           dir('repo_ui') {
+                           dir('repo_api') {
                                 sh "allure generate -o allure-results"
                                 def resultAPI = currentBuild.result
                             }
