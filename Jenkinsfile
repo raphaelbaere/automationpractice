@@ -66,7 +66,7 @@ pipeline {
                     def branchName = env.BRANCH_NAME
                     def buildNumber = env.BUILD_NUMBER
 
-                    def printAllure = bat(script: "cd C:\\Users\\rapha && node capture.js ${env.BUILD_NUMBER}", returnStdout: true).trim()
+                    def printAllure = sh(script: "cd C:\\Users\\rapha && node capture.js ${env.BUILD_NUMBER}", returnStdout: true).trim()
 
                     def message = "# Relatorio de Testes/API e UI/Chronos\n"
                     message += "**Branch:** RELEASE\n"
