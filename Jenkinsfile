@@ -27,7 +27,7 @@ pipeline {
                 }
             }
         }
-        stage('Test UI Repository') {
+        stage('Test API Repository') {
             steps {
                 script {
                     bat 'cd repo_api && mvn clean test -Dmaven.test.failure.ignore=true'
@@ -42,7 +42,7 @@ pipeline {
 
                     archiveArtifacts 'allure-report/**'
 
-                       dir('repo_ui') {
+                       dir('repo_api') {
                             sh "allure generate -o allure-results"
                             def resultAPI = currentBuild.result
                         }
@@ -62,7 +62,7 @@ post {
             jdk: '',
             results: [
                 [path: 'allure-results'],
-                [path: 'repo_ui/allure-results']
+                [path: 'repo_api/allure-results']
             ]
         ])
             echo 'Pós-processamento concluído.'
