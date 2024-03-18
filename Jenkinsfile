@@ -76,7 +76,7 @@ pipeline {
                     def PAYLOAD="{\"content\":\"${MESSAGE}\",\"file\":\"data:image/jpeg;base64,${IMAGE_BASE64}\"}"
 
                     // Enviar a mensagem com a imagem para o webhook do Discord
-                    sh "curl -X POST -H 'Content-Type: application/json' -d '${PAYLOAD}' '${WEBHOOK_URL}'"
+                    sh "echo '${PAYLOAD}' | curl -X POST -H 'Content-Type: application/json' -d @- '${WEBHOOK_URL}'"
                 } catch (e) {
                     echo "Erro ao executar notificação para o Discord: ${e.message}"
                 }
