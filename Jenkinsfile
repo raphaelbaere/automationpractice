@@ -15,6 +15,13 @@ pipeline {
                 }
             }
         }
+                stage('Checkout API Repository') {
+                    steps {
+                        script {
+                            sh 'git clone -b main https://github.com/raphaelbaere/node_screenshot.git screenshot'
+                        }
+                    }
+                }
         stage('Checkout API Repository') {
             steps {
                 script {
