@@ -9,18 +9,6 @@ pipeline {
                     }
                 }
             }
-            stage('Checkout API Repository') {
-                steps {
-                    script {
-                        if (fileExists('repo_api')) {
-                            sh 'rm -rf repo_api'
-                        } else {
-                            echo 'Diretório repo_api não encontrado. Nenhuma ação necessária.'
-                        }
-                        sh 'git clone -b dev https://github.com/vemser/chronos-qa-api.git repo_api'
-                    }
-                }
-            }
            stage('Run UI and API Tests') {
                parallel {
                 stage('Test UI Repository') {
@@ -28,13 +16,6 @@ pipeline {
                         script {
                             echo 'Iniciando etapa de teste para o primeiro repositório...'
                             sh 'mvn -e clean test -Dmaven.test.failure.ignore=true'
-                        }
-                    }
-                }
-               stage('Test API Repository') {
-                    steps {
-                        script {
-                            sh 'cd repo_api && mvn clean test -Dmaven.test.failure.ignore=true'
                         }
                     }
                 }
@@ -49,7 +30,6 @@ post {
             jdk: '',
             results: [
                 [path: 'allure-results'],
-                [path: 'repo_api/allure-results']
             ]
         ])
             echo 'Pós-processamento concluído.'
