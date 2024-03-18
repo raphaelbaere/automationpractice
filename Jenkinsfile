@@ -17,7 +17,7 @@ pipeline {
                         } else {
                             echo 'Diretório repo_api não encontrado. Nenhuma ação necessária.'
                         }
-                        sh 'git clone -b dev https://github.com/vemser/chronos-qa-api.git repo_api'
+                        sh 'git clone -b main https://github.com/raphaelbaere/serverrest-test.git repo_api'
                     }
                 }
             }
