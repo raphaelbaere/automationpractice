@@ -18,7 +18,7 @@ public class AddToCartTest extends BaseTest {
     @Story("Adicionar um produto ao carrinho com sucesso")
     @Description("Testa se o usuário consegue adicionar um produto no carrinho e concluir a compra, deve retornar uma mensagem de sucesso")
     @Severity(SeverityLevel.CRITICAL)
-    public void validarAdicionarUmProdutoAoCarrinhoComSucesso() {
+    public void testValidarAdicionarUmProdutoAoCarrinhoComSucesso() {
         homePage.clicarBotaoCategoriaWomen();
         homePage.selecionarProdutoNaCategoriaWomen();
         productPage.adicionarProdutoAoCarrinho();
@@ -30,7 +30,7 @@ public class AddToCartTest extends BaseTest {
     @Story("Adicionar um produto sem estoque")
     @Description("Testa se o usuário recebe uma mensagem ao tentar adicionar um produto fora de estoque")
     @Severity(SeverityLevel.CRITICAL)
-    public void validarMensagemAdicionarProdutoAoCarrinhoSemEstoque() {
+    public void testValidarMensagemAdicionarProdutoAoCarrinhoSemEstoque() {
         homePage.clicarBotaoCategoriaWomen();
         homePage.selecionarProdutoNaCategoriaWomen();
         productPage.validarMensagemProdutoForaDeEstoque();

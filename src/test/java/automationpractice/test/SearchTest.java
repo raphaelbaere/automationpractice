@@ -1,7 +1,8 @@
 package automationpractice.test;
 
 import io.qameta.allure.*;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Assertions;
 import automationpractice.data.dto.SearchDTO;
 import automationpractice.data.factory.datafaker.SearchData;
 import automationpractice.page.SearchPage;
@@ -16,7 +17,7 @@ public class SearchTest extends BaseTest {
     @Story("Procurar produto existente")
     @Description("Testa se o usuário consegue procurar um produto existente e verificar se o produto procurado é o mesmo retornado")
     @Severity(SeverityLevel.CRITICAL)
-    public void validaSearchComProdutoValido(){
+    public void testValidaSearchComProdutoValido(){
         searchPage.enviarProdutoNoSearch(searchData.produtoValido().getNome());
         String nomeDoProduto = searchPage.validarNomeDoProdutoBuscado();
         Assertions.assertEquals("Printed Dress", nomeDoProduto);
@@ -27,7 +28,7 @@ public class SearchTest extends BaseTest {
     @Story("Procurar produto nao existente")
     @Description("Testa se o usuário ao procurar produto nao existente recebe a mensagem apropriada")
     @Severity(SeverityLevel.CRITICAL)
-    public void validaSearchComProdutoInvalido(){
+    public void testValidaSearchComProdutoInvalido(){
         SearchDTO produtoNomeInvalido = searchData.produtoInvalido();
         searchPage.enviarProdutoNoSearch(produtoNomeInvalido.getNome());
         String mensagem = searchPage.validarMensagemDeNaoEncontrado();
@@ -39,7 +40,7 @@ public class SearchTest extends BaseTest {
     @Story("Procurar produto com erro de nomenclatura")
     @Description("Testa se o usuário ao procurar produto com um erro de nomenclatura retorna um produto com um nome semelhante")
     @Severity(SeverityLevel.CRITICAL)
-    public void validaSearchComProdutoComNomeErros(){
+    public void testValidaSearchComProdutoComNomeErros(){
         searchPage.enviarProdutoNoSearch(searchData.produtoComNomeProximo().getNome());
         String nomeDoProduto = searchPage.validarNomeDoProdutoBuscado();
         Assertions.assertEquals("Printed Dress", nomeDoProduto);

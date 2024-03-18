@@ -1,6 +1,12 @@
 pipeline {
     agent any
 
+    tools {
+        maven "MAVEN"
+        nodejs "NODE"
+        git "GIT"
+    }
+
     stages {
             stage('Checkout UI Repository') {
                 steps {
@@ -28,6 +34,7 @@ pipeline {
                         script {
                             echo 'Iniciando etapa de teste para o primeiro repositório...'
                             sh 'mvn -e clean test -Dmaven.test.failure.ignore=true'
+                            sh "allure generate -o allure-results"
                         }
                     }
                 }
@@ -35,30 +42,12 @@ pipeline {
                     steps {
                         script {
                             sh 'cd repo_api && mvn clean test -Dmaven.test.failure.ignore=true'
+                            sh "cd repo_api && allure generate -o allure-results"
                         }
                     }
                 }
                }
            }
-            stage('Publish Allure Report') {
-                steps {
-                    script {
-                        try {
-                        sh 'allure generate -o allure-results'
-
-                        archiveArtifacts 'allure-report/**'
-
-                           dir('repo_api') {
-                                sh "allure generate -o allure-results"
-                                def resultAPI = currentBuild.result
-                            }
-                        } catch (e) {
-                        echo "Erro ao executar Allure Report: ${e.message}"
-                        }
-                        echo 'Arquivos de relatório Allure arquivados.'
-                    }
-                }
-            }
     }
 
 post {
