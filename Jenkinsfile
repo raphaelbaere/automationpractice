@@ -80,7 +80,7 @@ pipeline {
                     message += "**Build:** ${buildNumber}\n"
                     message += "**Status:** ${buildResult}\n"
 
-                    def screenshotPath = sh(script: "cd screenshot && node capture.js ${env.JOB_NAME} ${env.BUILD_NUMBER} ${currentBuild.currentResult} ${message} ${WEBHOOK_URL}", returnStdout: true).trim()
+                    def screenshotPath = sh(script: "cd screenshot && node capture.js ${env.JOB_NAME} ${env.BUILD_NUMBER} ${currentBuild.currentResult} ${message} https://discord.com/api/webhooks/1219148560533159946/e8GyMfyFdxhiqKz16X23Z_tkrKBoCH6qQFERYKgqyF6gwJi-6z7fpOlA6m_-XCDdZo4y", returnStdout: true).trim()
                 } catch (e) {
                     echo "Erro ao executar notificação para o Discord: ${e.message}"
                 }
