@@ -16,6 +16,20 @@ pipeline {
             }
         }
 
+        stage('Checkout Screenshot') {
+            steps {
+                script {
+                    if (fileExists('screenshot')) {
+                        sh 'rm -rf screenshot'
+                    } else {
+                        echo 'Diretório repo_api não encontrado. Nenhuma ação necessária.'
+                    }
+                    sh 'git clone -b main https://github.com/raphaelbaere/jenkins_pipeline_screenshot.git screenshot'
+                    sh 'cd screenshot && npm install'
+                }
+            }
+        }
+
         stage('Checkout API Repository') {
             steps {
                 script {
@@ -58,23 +72,13 @@ pipeline {
                     def buildUrl = env.BUILD_URL
                     def buildResult = currentBuild.currentResult
                     def buildNumber = env.BUILD_NUMBER
-                    def clientIdImgur = "a355bf1c455a135"
-                    def message = "# Relatorio de Testes/API e UI/Chronos\n"
-                    message += "**Branch:** RELEASE\n"
+
+                    def message = "# Relatorio de Testes/API e UI/\n"
+                    message += "**Branch:** MAIN\n"
                     message += "**Build:** ${buildNumber}\n"
                     message += "**Status:** ${buildResult}\n"
-                    message += "**Allure Report:** [Allure Report Link](https://bear-above-mole.ngrok-free.app/job/chronos-qa-api-pipeline/${buildNumber}/allure/)"
 
-                    def screenshotPath = sh(script: "cd screenshot && node capture.js ${env.BUILD_NUMBER} ${env.JOB_NAME} ${clientIdImgur}", returnStdout: true).trim()
-
-                    def WEBHOOK_URL="https://discord.com/api/webhooks/1219110961928077393/OTQYO4L5cIVwvQyokpAzx6B6GFs5E9PZnyxjV54NDraBHDvufYth9Lw_PBFH1kpGcLSe"
-                    def MESSAGE="Mensagem de exemplo com imagem"
-                    // Construir a carga útil JSON
-                    def PAYLOAD="{\"content\":\"${MESSAGE}\"}"
-
-
-                    // Enviar a mensagem para o webhook do Discord
-                    sh "curl -X POST -H 'Content-Type: multipart/form-data' -F 'payload_json=${PAYLOAD}' -F 'file1=@${screenshotPath}' '${WEBHOOK_URL}'"
+                    def screenshotPath = sh(script: "cd screenshot && node capture.js ${env.JOB_NAME} ${env.BUILD_NUMBER} ${currentBuild.currentResult} ${message}", returnStdout: true).trim()
                 } catch (e) {
                     echo "Erro ao executar notificação para o Discord: ${e.message}"
                 }
