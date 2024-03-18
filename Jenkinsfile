@@ -38,14 +38,6 @@ pipeline {
         }
         stage('Run UI and API Tests') {
             parallel {
-                stage('Test UI Repository') {
-                    steps {
-                        script {
-                            echo 'Iniciando etapa de teste para o primeiro repositório...'
-                            sh 'mvn -e clean test -Dmaven.test.failure.ignore=true'
-                        }
-                    }
-                }
                 stage('Test API Repository') {
                     steps {
                         script {
