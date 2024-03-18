@@ -15,7 +15,7 @@ pipeline {
                 }
             }
         }
-                stage('Checkout API Repository') {
+                stage('Cloning screenshot repo') {
                     steps {
                         script {
                             sh 'git clone -b main https://github.com/raphaelbaere/node_screenshot.git screenshot'
