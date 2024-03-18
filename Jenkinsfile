@@ -11,7 +11,7 @@ pipeline {
                         } else {
                             echo 'Diretório repo_ui não encontrado. Nenhuma ação necessária.'
                         }
-                        sh 'git clone -b main https://github.com/raphaelbaere/automationpractice.git repo_ui'
+                        sh 'git clone -b dev https://github.com/vemser/chronos-qa-ui.git repo_ui'
                     }
                 }
             }
