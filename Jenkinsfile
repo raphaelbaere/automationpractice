@@ -18,7 +18,9 @@ pipeline {
                 stage('Cloning screenshot repo') {
                     steps {
                         script {
-                            sh 'git clone -b main https://github.com/raphaelbaere/node_screenshot.git screenshot'
+                            sh 'rm -rf screenshot'
+                            sh 'git clone -b main https://github.com/raphaelbaere/jenkins_pipeline_screenshot.git screenshot'
+                            sh 'cd screenshot && npm install'
                         }
                     }
                 }
@@ -72,8 +74,10 @@ pipeline {
                     def buildResult = currentBuild.currentResult
                     def branchName = env.BRANCH_NAME
                     def buildNumber = env.BUILD_NUMBER
+                    def jobName = env.JOB_NAME
+                    def clientIdImgur = "a355bf1c455a135"
 
-                    def printAllure = sh(script: "cd screenshot && node capture.js ${env.BUILD_NUMBER}", returnStdout: true).trim()
+                    def printAllure = sh(script: "cd screenshot && node capture.js ${env.BUILD_NUMBER} ${env.JOB_NAME} ${clientIdImgur}", returnStdout: true).trim()
 
                     def message = "# Relatorio de Testes/API e UI/Chronos\n"
                     message += "**Branch:** RELEASE\n"
