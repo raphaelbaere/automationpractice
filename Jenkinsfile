@@ -3,6 +3,7 @@ pipeline {
 
     tools {
         maven "MAVEN"
+        nodejs "NODE"
         git "GIT"
     }
 
@@ -14,6 +15,21 @@ pipeline {
                 }
             }
         }
+
+        stage('Checkout Screenshot') {
+            steps {
+                script {
+                    if (fileExists('screenshot')) {
+                        sh 'rm -rf screenshot'
+                    } else {
+                        echo 'Diretório repo_api não encontrado. Nenhuma ação necessária.'
+                    }
+                    sh 'git clone -b main https://github.com/raphaelbaere/jenkins_pipeline_screenshot.git screenshot'
+                    sh 'cd screenshot && npm install'
+                }
+            }
+        }
+
         stage('Checkout API Repository') {
             steps {
                 script {
@@ -29,17 +45,17 @@ pipeline {
 
         stage('Run UI and API Tests') {
             parallel {
-                stage('Test UI Repository') {
-                    steps {
-                        script {
-                            sh 'mvn clean test -Dmaven.test.failure.ignore=true'
-                        }
-                    }
-                }
                 stage('Test API Repository') {
                     steps {
                         script {
                             sh 'cd repo_api && mvn clean test -Dmaven.test.failure.ignore=true'
+                        }
+                    }
+                }
+                stage('Test UI Repository') {
+                    steps {
+                        script {
+                            sh 'mvn clean test -Dmaven.test.failure.ignore=true'
                         }
                     }
                 }
@@ -57,6 +73,20 @@ pipeline {
                     [path: 'repo_api/allure-results']
                 ]
             ])
+            echo 'Pós-processamento concluído.'
+            script {
+                try {
+                    def buildUrl = env.BUILD_URL
+                    def buildResult = currentBuild.currentResult
+                    def buildNumber = env.BUILD_NUMBER
+                    def branchBuild = "MAIN"
+                    def webHookURL = "https://discord.com/api/webhooks/1219148560533159946/e8GyMfyFdxhiqKz16X23Z_tkrKBoCH6qQFERYKgqyF6gwJi-6z7fpOlA6m_-XCDdZo4y"
+
+                    def screenshotPath = sh(script: "cd screenshot && node capture.js ${env.JOB_NAME} ${env.BUILD_NUMBER} ${currentBuild.currentResult} ${branchBuild} ${webHookURL}", returnStdout: true).trim()
+                } catch (e) {
+                    echo "Erro ao executar notificação para o Discord: ${e.message}"
+                }
+            }
         }
     }
 }
